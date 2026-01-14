@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <meta charset="UTF-8">
+  <title>Reports Dashboard</title>
+  <script src="/js/reports.js"></script>
+  <style>
+    .card {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin: 10px;
+      width: 200px;
+      display: inline-block;
+      text-align: center;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Reports Dashboard</h2>
+
+<div class="card">
+  <h4>Total Courses</h4>
+  <div id="totalCourses">0</div>
+</div>
+
+<div class="card">
+  <h4>Total Students</h4>
+  <div id="totalStudents">0</div>
+</div>
+
+<div class="card">
+  <h4>Total Enrollments</h4>
+  <div id="totalEnrollments">0</div>
+</div>
+
+<div class="card">
+  <h4>Total Revenue</h4>
+  <div id="totalRevenue">₹ 0</div>
+</div>
+
+<hr />
+
+<div style="display: flex; gap: 40px; justify-content: center; margin-top: 30px;">
+  
+  <div style="width: 400px;">
+    <h3 style="text-align:center;">Overview (Bar Chart)</h3>
+    <canvas id="barChart"></canvas>
+  </div>
+
+  <div style="width: 400px;">
+    <h3 style="text-align:center;">Revenue Share (Pie Chart)</h3>
+    <canvas id="pieChart"></canvas>
+  </div>
+
+</div>
+
+</body>
+</html>

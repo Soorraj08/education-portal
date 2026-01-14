@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EduAdmin Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+  <h2>EduAdmin</h2>
+  <div class="subtitle">Student Portal</div>
+
+  <button onclick="showDashboard()">Dashboard</button>
+  <button onclick="showStudents()">Students</button>
+  <button onclick="showCourses()">Courses</button>
+  <button onclick="showEnrollments()">Enrollments</button>
+  <button onclick="showReports()">Reports</button>
+
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</div>
+
+  <!-- MAIN CONTENT -->
+  <main class="content">
+
+    <!-- DASHBOARD SECTION (❗ THIS WAS MISSING) -->
+     
+  <section id="dashboardSection" class="dashboard-hero">
+  <div class="dashboard-overlay">
+    <div class="cards vertical-cards">
+      <div class="card blue">
+        <h3>Total Students</h3>
+        <span id="totalStudents">0</span>
+      </div>
+
+      <div class="card green">
+        <h3>Total Courses</h3>
+        <span id="totalCourses">0</span>
+      </div>
+
+      <div class="card orange">
+        <h3>Total Enrollments</h3>
+        <span id="totalEnrollments">0</span>
+      </div>
+
+      <div class="card purple">
+        <h3>Total Revenue</h3>
+        <span id="totalRevenue">₹0</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+   <!-- STUDENTS -->
+<section id="studentsSection">
+  <h1>Students</h1>
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+  <button class="primary-btn" style="background:#3498db;"
+          onclick="openAddStudent()">
+    + Add Student
+  </button>
+
+  <div>
+    <input id="studentSearchInput"
+           type="text"
+           placeholder="Search students..."
+           style="padding:6px 10px; border-radius:6px; border:1px solid #ccc;">
+
+    <button onclick="searchStudents()"
+            style="background:#f1c40f; color:#000; padding:6px 12px; border:none; border-radius:6px;">
+      Search
+    </button>
+  </div>
+</div>
+
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Name</th>
+        <th>Roll Number</th>
+        <th>Email</th>
+        <th>Course</th>
+        <th>Fees</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="studentsTable"></tbody>
+  </table>
+</section>
+
+<!-- COURSES -->
+<section id="coursesSection">
+  <h1>Courses</h1>
+  <button onclick="openAddCourse()" class="primary-btn" style="background:#3498db;">
+  + Add Course
+</button>
+
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Course Name</th>
+        <th>Duration</th>
+        <th>Fees</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="coursesTable"></tbody>
+  </table>
+</section>
+
+<!-- ENROLLMENTS -->
+<section id="enrollmentsSection" class="content-section" style="display:none;">
+  <h1>Enrollments</h1>
+
+  <div class="section-header">
+    <select id="studentSelect"></select>
+    <select id="courseSelect"></select>
+    <button class="primary-btn" style="background:#16a34a" onclick="enrollStudent()">Enroll</button>
+  </div>
+
+  <div class="card" style="margin-top:16px;">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Student</th>
+          <th>Course</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="enrollmentsTable"></tbody>
+    </table>
+  </div>
+</section>
+
+    <!-- REPORTS -->
+<section id="reportsSection" style="display:none;">
+    <h1>Reports Dashboard</h1>
+<div class="stats-grid">
+    <div class="stat-card">
+        <h4>Total Courses</h4>
+        <div id="totalCourses">0</div>
+    </div>
+
+    <div class="stat-card">
+        <h4>Total Students</h4>
+        <div id="totalStudents">0</div>
+    </div>
+
+    <div class="stat-card">
+        <h4>Total Enrollments</h4>
+        <div id="totalEnrollments">0</div>
+    </div>
+
+    <div class="stat-card">
+        <h4>Total Revenue</h4>
+        <div id="totalRevenue">₹ 0</div>
+    </div>
+</div>
+
+<div style="display:flex; gap:40px; margin-top:30px;">
+    <div style="width:400px; height:300px;">
+        <h3>Overview (Bar Chart)</h3>
+        <canvas id="barChart" style="height:240px;"></canvas>
+    </div>
+
+    <div style="width:400px; height:300px;">
+        <h3>Revenue Share (Pie Chart)</h3>
+        <canvas id="pieChart" style="height:240px;"></canvas>
+    </div>
+</div>
+
+<div style="display:flex; justify-content:flex-end; margin-top:20px;">
+    <button
+        style="background:#16a34a;color:white;padding:10px 16px;border:none;border-radius:6px; cursor:pointer;"
+        onclick="downloadReportPDF()">
+        📄 Download PDF
+    </button>
+</div>
+
+</section>
+
+
+<!-- JS FILES -->
+<script src="/js/dashboard.js"></script>
+<script src="/js/students.js"></script>
+<script src="/js/courses.js"></script>
+<script src="/js/enrollments.js"></script>
+<script src="/js/reports.js"></script>
+
+<!-- STUDENT MODAL -->
+<div id="studentModal" class="modal hidden">
+  <div class="modal-box">
+    <h2 id="modalTitle">Add Student</h2>
+
+    <label>ID</label>
+    <input id="studentIdInput" hidden>
+
+    <label>Name</label>
+    <input id="studentNameInput" type="text">
+
+    <label>Email</label>
+    <input id="studentEmailInput" type="email">
+
+    <label>Roll Number</label>
+    <input id="studentRollInput" type="text">
+
+    <label>Course</label>
+    <input id="studentCourseInput" type="text">
+
+    <label>Fees</label>
+    <input id="studentFeesInput" type="number">
+
+    <div class="modal-actions">
+      <button class="btn-green" onclick="saveStudent()">Save</button>
+      <button onclick="closeStudentModal()" class="btn-gray">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- COURSE MODAL -->
+<div id="courseModal" class="modal hidden">
+  <div class="modal-box">
+    <h2 id="courseModalTitle">Add Course</h2>
+
+    <input type="hidden" id="courseIdInput">
+
+    <label>Course Name</label>
+    <input type="text" id="courseNameInput">
+
+    <label>Duration</label>
+    <input type="text" id="courseDurationInput">
+
+    <label>Fees</label>
+    <input type="number" id="courseFeeInput">
+
+    <div class="modal-actions">
+      <button id="saveCourseBtn" class="btn-save" onclick="saveCourse()">Save</button>
+
+      <button onclick="closeCourseModal()" class="btn-gray">Cancel</button>
+    </div>
+  </div>
+</div>
+
+
+
+</body>
+</html>
+
+

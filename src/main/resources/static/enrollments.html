@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Enrollments</title>
+  <script src="js/enrollments.js"></script>
+</head>
+<body>
+
+<h2>Enroll Student to Course</h2>
+
+<select id="studentSelect"></select>
+<select id="courseSelect"></select>
+<button onclick="enrollStudent()">Enroll</button>
+
+<hr>
+
+<h2>Enrollments List</h2>
+
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Student</th>
+      <th>Course</th>
+      <th>Date</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody id="enrollmentTable"></tbody>
+</table>
+
+</body>
+</html>
+
